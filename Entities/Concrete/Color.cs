@@ -4,10 +4,8 @@ using System.Collections.Generic;
 using System.Text;
 
 namespace Entities.Concrete {
-    public class Car:IEntity {
-
-        public int CarId { get; set; }
-        public string Description { get; set; }
-
+    public class Color:IEntity {
+        public int Id { get; set; }
+        public string Name { get; set; }
     }
 }
