@@ -6,11 +6,16 @@ using System;
 namespace ConsoleUI {
     class Program {
         static void Main(string[] args) {
-            ICarService car=new CarManager(new EfCarDal());
-            foreach (var cars in car.GetAll()) {
-                Console.WriteLine(cars);
-            }
 
+            // anlamadığım bir şekilde GetCarsByBrandId ve GetCarsByColorId fonksiyonları
+            // bozuldu çözemedim aynı zamanda tablolar arasında bilgi de alamıyorum 
+            CarManager car =new CarManager(new EfCarDal());
+            foreach (var cars in car.GetCarsByBrandId(1)) {
+                Console.WriteLine(cars.BrandName);
+            }
+        
+        
+        
         }
     }
 }

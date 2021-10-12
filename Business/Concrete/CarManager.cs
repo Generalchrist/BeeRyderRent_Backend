@@ -9,13 +9,23 @@ namespace Business.Concrete {
     public class CarManager : ICarService {
 
         ICarDal _carDal;
+        IBrandDal _brandDal;
+        IColorDal _colorDal;
+
+        public CarManager(IColorDal colorDal) {
+            _colorDal = colorDal;
+        }
+
+        public CarManager(IBrandDal brandDal) {
+            _brandDal = brandDal;
+        }
 
         public CarManager(ICarDal carDal) {
             _carDal = carDal;
         }
 
         public void Add(Car car) {
-            if (car.Description.Length>2) {
+            if (car.CarDescription.Length>2) {
                 _carDal.Add(car);
 
             }
@@ -34,16 +44,16 @@ namespace Business.Concrete {
             return _carDal.GetAll();
         }
 
-        public List<Car> GetCarsByBrandId(int brandId) {
-            return _carDal.GetAll(p=> p.BrandId==brandId);
+        public List<Brand> GetCarsByBrandId(int brandId) {
+            return _brandDal.GetAll(p=> p.BrandId==brandId);
         }
 
-        public List<Car> GetCarsByColorId(int colorId) {
-            return _carDal.GetAll(p=> p.ColorId==colorId);
+        public List<Color> GetCarsByColorId(int colorId) {
+            return _colorDal.GetAll(p=> p.ColorId==colorId);
         }
 
         public List<Car> GetCarsByDailyPrice(int min, int max) {
-            return _carDal.GetAll(p=> p.DailyPrice>=min && p.DailyPrice<=max);
+            return _carDal.GetAll(p=> p.CarUnitPrice>=min && p.CarUnitPrice<=max);
         }
 
         public void Update(Car car) {
