@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 
 namespace Core.Utilities.Results.Data {
-    class DataResult<T> :Result ,IDataResult<T> {
+    public class DataResult<T> :Result ,IDataResult<T> {
         public DataResult(T data,bool success,string message):base(success,message) {
             Data = data;
         }

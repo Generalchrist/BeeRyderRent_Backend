@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 
 namespace Core.Utilities.Results {
-    class Result : IResult {
+    public class Result : IResult {
 
         public Result(bool success,string message):this(success) {
             Message = message;
