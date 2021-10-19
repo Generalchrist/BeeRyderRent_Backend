@@ -11,7 +11,7 @@ namespace ConsoleUI {
         static void Main(string[] args) {
     
 
-            Brand brand = new Brand(){Id=3,Name="Red Bull"};
+            Brand brand = new Brand(){Id=4,Name="Alpine"};
             IBrandService brandManager = new BrandManager(new EfBrandDal());
             //var result = brandManager.Add(brand);
             //Console.WriteLine(result.Message);
@@ -20,8 +20,19 @@ namespace ConsoleUI {
             CarManager carManager = new CarManager(new EfCarDal());
             //carManager.Delete(car);
 
+            Customer customer = new Customer{CustomerId=1,CompanyName="Daimler"};
+            CustomerManager customerManager = new CustomerManager(new EfCustomerDal());
+            //var result = customerManager.Add(customer);
+            //Console.WriteLine(result.Message);
+
+            Rental rental = new Rental{CarId=1,CustomerId=1,Id=1};
+            RentalManager rentalManager = new RentalManager(new EfRentalDal());
+            var result = rentalManager.Add(rental);
+            Console.WriteLine(result.Message);
+
+
             /*
-            foreach (var item in carManager.GetCarsByColorId(1)) {
+            foreach (var item in customerManager) {
                 Console.WriteLine(item.Description);
             }
             */

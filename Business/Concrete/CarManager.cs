@@ -20,7 +20,7 @@ namespace Business.Concrete {
 
         public IResult Add(Car car) {
             if (car.Description.Length<2) {
-                return new ErrorResult(Messages.CarNameInvalid);
+                return new ErrorResult(Messages.NameInvalid);
             }   
             _carDal.Add(car);
             return new SuccessResult(Messages.CarAdded);
@@ -28,7 +28,7 @@ namespace Business.Concrete {
 
         public IResult Delete(Car car) {
             if (car.Description.Length < 2) {
-                return new ErrorResult(Messages.CarNameInvalid);
+                return new ErrorResult(Messages.NameInvalid);
             }
             _carDal.Delete(car);
             return new SuccessResult(Messages.CarDeleted);
