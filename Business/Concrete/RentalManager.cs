@@ -17,23 +17,23 @@ namespace Business.Concrete {
         public RentalManager(IRentalDal rentalDal) {
             _rentalDal = rentalDal;
         }
-        public IResult IsCarAvailable(int carId) {
-            if (_rentalDal.GetAll(r => (r.CarId == carId) && (r.ReturnDate == null)).Any()) {
-                return new SuccessResult();
 
-            }
-            return new ErrorResult();
-        }
 
         public IResult Add(Rental rental) {
-            var result = IsCarAvailable(rental.CarId);
-            if (result.Success) {
+            var result = _rentalDal.Get(r => r.CarId == rental.CarId);
+            if (result==null || result.ReturnDate < DateTime.Now.Date) {
                 _rentalDal.Add(rental);
                 return new SuccessResult(Messages.RentalAdded);
             }
             else {
                 return new ErrorResult(Messages.NameInvalid);
             }
+        }
+        public IResult Update(Rental rental) {
+            _rentalDal.Update(rental);
+            return new SuccessResult(Messages.UserUpdated);
+
+
         }
 
         public IResult Delete(Rental rental) {
@@ -47,20 +47,5 @@ namespace Business.Concrete {
 
         }
 
-
-
-        public IResult Update(Rental rental) {
-            _rentalDal.Update(rental);
-            return new SuccessResult(Messages.UserUpdated);
-
-
-        }
-
-        public IResult IsCarReturned(int carId) {
-            if (_rentalDal.GetAll(r => (r.CarId == carId) && (r.ReturnDate == null)).Any()) {
-                return new ErrorResult();
-            }
-            return new SuccessResult();
-        }
     }
 }
