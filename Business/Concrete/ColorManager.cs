@@ -1,5 +1,7 @@
 ﻿using Business.Abstract;
 using Business.Constants;
+using Business.ValidationRules.FluentValidation;
+using Core.Aspects.Autofac.Validation;
 using Core.Utilities.Results;
 using Core.Utilities.Results.Data;
 using DataAccess.Abstract;
@@ -16,6 +18,7 @@ namespace Business.Concrete {
             _color = color;
         }
 
+        [ValidationAspect(typeof(ColorValidator))]
         public IResult Add(Color color) {
             _color.Add(color);
             return new SuccessResult(Messages.CarAdded);
