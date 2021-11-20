@@ -1,5 +1,7 @@
-﻿using System;
+﻿using Core.Entities.Concrete;
+using System;
 using System.Collections.Generic;
+using System.Runtime.Serialization;
 using System.Text;
 
 namespace Business.Constants {
@@ -22,6 +24,12 @@ namespace Business.Constants {
         public static string CustomerListed = "Customers had been listed";
         public static string CustomerDeleted = "Customer successfully deleted";
         public static string CustomerUpdated = "Customer successfully updated";
-
+        public static string UserNotFound = "User not found";
+        public static string PasswordError = "Password is wrong";
+        public static string SuccesfullLogin = "Succesfully logged in";
+        public static string UserAlreadyExists = "User Already Exists";
+        public static string AccessTokenCreated = "Access token has created";
+        public static string UserRegistered = "Succesfully registered";
+        public static string AuthorizationDenied = "Authorization Denied";
     }
 }
