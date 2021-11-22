@@ -6,9 +6,6 @@ using Core.Utilities.Results.Data;
 using Core.Utilities.Security.Hashing;
 using Core.Utilities.Security.JWT;
 using Entities.DTOs;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace Business.Concrete {
     public class AuthManager : IAuthService {
@@ -23,13 +20,13 @@ namespace Business.Concrete {
 
         public IDataResult<AccessToken> CreateAccessToken(User user) {
             var claims = _userService.GetClaims(user);
-            var accessToken = _tokenHelper.CreateToken(user, claims);
+            var accessToken = _tokenHelper.CreateToken(user, claims.Data);
             return new SuccessDataResult<AccessToken>(accessToken, Messages.AccessTokenCreated);
         }
 
         public IDataResult<User> Login(UserForLoginDto userForLoginDto) {
-            var userToCheck = _userService.GetByMail(userForLoginDto.Email);
-            if (userToCheck != null) {
+            var userToCheck = _userService.GetByMail(userForLoginDto.Email).Data;
+            if (userToCheck == null) {
                 return new ErrorDataResult<User>(Messages.UserNotFound);
             }
             if (!HashingHelper.VerifyPasswordHash(userForLoginDto.Password, userToCheck.PasswordHash, userToCheck.PasswordSalt)) {
@@ -50,11 +47,11 @@ namespace Business.Concrete {
                 Status = true
             };
             _userService.Add(user);
-            return new SuccessDataResult<User>(Messages.UserRegistered);
+            return new SuccessDataResult<User>(user,Messages.UserRegistered);
         }
 
         public IResult UserExists(string email) {
-            if (_userService.GetByMail(email) != null) {
+            if (_userService.GetByMail(email).Data != null) {
                 return new ErrorResult(Messages.UserAlreadyExists);
             }
             return new SuccessResult();

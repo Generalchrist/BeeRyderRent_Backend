@@ -3,8 +3,6 @@ using Core.Utilities.Results;
 using Core.Utilities.Results.Data;
 using Core.Utilities.Security.JWT;
 using Entities.DTOs;
-using System;
-using System.Text;
 
 namespace Business.Abstract {
     public interface IAuthService {

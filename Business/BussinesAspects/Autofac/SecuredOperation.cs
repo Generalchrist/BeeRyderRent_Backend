@@ -6,8 +6,6 @@ using Core.Utilities.IoC;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection;
 using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace Business.BussinesAspects.Autofac {
     public class SecuredOperation : MethodInterception {
@@ -28,7 +26,5 @@ namespace Business.BussinesAspects.Autofac {
             }
             throw new Exception(Messages.AuthorizationDenied);
         }
-
-
     }
 }

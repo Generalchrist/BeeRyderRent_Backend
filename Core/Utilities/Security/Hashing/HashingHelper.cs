@@ -5,6 +5,7 @@ using System.Text;
 namespace Core.Utilities.Security.Hashing {
     public class HashingHelper {
     
+        // şifrenin saltı ve hashi olusturuluyor
         public static void CreatePasswordHash
             (string password,out byte[] passwordHash,out byte[] passwordSalt) {
 
@@ -15,6 +16,7 @@ namespace Core.Utilities.Security.Hashing {
 
         }
     
+        //login işlemi yapılırken şifrenın kontrol edildiği yer
         public static bool VerifyPasswordHash(string password, byte[] passwordHash, byte[] passwordSalt) {
 
             using (var hmac = new System.Security.Cryptography.HMACSHA512(passwordSalt)) {
@@ -25,12 +27,9 @@ namespace Core.Utilities.Security.Hashing {
                         return false;
                     }
                 }
+                return true;
             }
-            return true;
+            
         }
-
-
-
-
     }
 }
