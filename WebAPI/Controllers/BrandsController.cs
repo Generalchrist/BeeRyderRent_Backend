@@ -47,7 +47,7 @@ namespace WebAPI.Controllers {
             Thread.Sleep(2000);
             var result = _brandService.GetAll();
             if (result.Success) {
-                return Ok(result.Data);
+                return Ok(result);
             }
             return BadRequest(result.Message);
         }
