@@ -22,9 +22,17 @@ namespace WebAPI.Controllers {
 
         [HttpGet("getall")]
         public IActionResult GetAll() {
-            Thread.Sleep(2000);
+            //Thread.Sleep(2000);
 
             var result = _carService.GetAll();
+            if (result.Success) {
+                return Ok(result);
+            }
+            return BadRequest(result.Message);
+        }
+        [HttpGet("GetCarDetailDto")]
+        public IActionResult GetCarDetailDto() {
+            var result = _carService.GetCarDetailDto();
             if (result.Success) {
                 return Ok(result);
             }

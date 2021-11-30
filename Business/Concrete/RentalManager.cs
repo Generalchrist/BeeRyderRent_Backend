@@ -6,6 +6,7 @@ using Core.Utilities.Results;
 using Core.Utilities.Results.Data;
 using DataAccess.Abstract;
 using Entities.Concrete;
+using Entities.DTOs;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -24,6 +25,7 @@ namespace Business.Concrete {
         public IResult Add(Rental rental) {
             var result = _rentalDal.Get(r => r.CarId == rental.CarId);
             if (result==null || result.ReturnDate < DateTime.Now.Date) {
+                rental.RentDate = DateTime.Now.Date;
                 _rentalDal.Add(rental);
                 return new SuccessResult(Messages.RentalAdded);
             }
@@ -49,5 +51,8 @@ namespace Business.Concrete {
 
         }
 
+        public IDataResult<List<RentalDetailDto>> GetRentalDetailDto() {
+            return new SuccessDataResult<List<RentalDetailDto>>(_rentalDal.GetRentalDetailDto(), Messages.RentalListed);
+        }
     }
 }

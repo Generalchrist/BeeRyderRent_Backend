@@ -51,5 +51,15 @@ namespace WebAPI.Controllers {
             }
             return BadRequest(result.Message);
         }
+        [HttpGet("getrentaldetaildto")]
+        public IActionResult GetRentalDetailDto() {
+            Thread.Sleep(2000);
+
+            var result = _rentalService.GetRentalDetailDto();
+            if (result.Success) {
+                return Ok(result);
+            }
+            return BadRequest(result.Message);
+        }
     }
 }

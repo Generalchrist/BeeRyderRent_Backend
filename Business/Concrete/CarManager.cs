@@ -10,6 +10,7 @@ using Core.Utilities.Results;
 using Core.Utilities.Results.Data;
 using DataAccess.Abstract;
 using Entities.Concrete;
+using Entities.DTOs;
 using System;
 using System.Collections.Generic;
 
@@ -44,9 +45,9 @@ namespace Business.Concrete {
 
         [CacheAspect]
         public IDataResult<List<Car>> GetAll() {
-            if (DateTime.Now.Hour==19) {
-                return new ErrorDataResult<List<Car>>(Messages.MaintenanceTime);
-            }
+            //if (DateTime.Now.Hour==19) {
+            //    return new ErrorDataResult<List<Car>>(Messages.MaintenanceTime);
+            //}
             return new SuccessDataResult<List<Car>>(_carDal.GetAll(),Messages.CarsListed); 
         }
 
@@ -74,6 +75,10 @@ namespace Business.Concrete {
         //[TransactionScopeAspect]
         public IResult AddTransactionalTest(Car car) {
             throw new NotImplementedException();
+        }
+
+        public IDataResult<List<CarDetailDto>> GetCarDetailDto() {
+            return new SuccessDataResult<List<CarDetailDto>>(_carDal.GetCarDetailDto(),Messages.CarsListed);
         }
     }
 }
