@@ -43,7 +43,7 @@ namespace WebAPI.Controllers {
         }
         [HttpGet("getall")]
         public IActionResult GetAll() {
-            Thread.Sleep(2000);
+            Thread.Sleep(500);
 
             var result = _rentalService.GetAll();
             if (result.Success) {
@@ -53,7 +53,7 @@ namespace WebAPI.Controllers {
         }
         [HttpGet("getrentaldetaildto")]
         public IActionResult GetRentalDetailDto() {
-            Thread.Sleep(2000);
+            Thread.Sleep(500);
 
             var result = _rentalService.GetRentalDetailDto();
             if (result.Success) {
