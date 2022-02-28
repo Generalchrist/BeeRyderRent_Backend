@@ -13,7 +13,7 @@ namespace DataAccess.Concrete.EntityFramework {
             using (NorthwindContext context = new NorthwindContext()) {
                 var result = from r in context.Rentals
                              join ca in context.Cars
-                             on r.Id equals ca.Id
+                             on r.CarId equals ca.Id
                              join b in context.Brands
                              on ca.BrandId equals b.Id
                              join u in context.Users
