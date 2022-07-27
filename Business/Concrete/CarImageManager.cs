@@ -24,15 +24,9 @@ namespace Business.Concrete {
         [ValidationAspect(typeof(CarImageValidator))]
         public IResult Add(IFormFile file, CarImage carImage) {
 
-            var imageamount = _carImageDal.GetAll(ci => ci.CarImageId == carImage.CarImageId).Count;
-            if (imageamount >= 5) {
-
-                return new ErrorResult();
-            }
-
             var imageResult = FileHelper.Upload(file);
             if (!imageResult.Success) {
-
+                carImage.ImageDate = DateTime.Now;
                 return new ErrorResult(imageResult.Message);
 
             }
@@ -41,7 +35,7 @@ namespace Business.Concrete {
 
             _carImageDal.Add(carImage);
 
-            return new SuccessResult();
+            return new SuccessResult(carImage.CarImageId.ToString());
 
         }
 
@@ -60,8 +54,9 @@ namespace Business.Concrete {
         }
 
         public IDataResult<List<CarImage>> GetAll() {
+            var images = _carImageDal.GetAll();
 
-            return new SuccessDataResult<List<CarImage>>(_carImageDal.GetAll(), Messages.CarsListed);
+            return new SuccessDataResult<List<CarImage>>(images, Messages.CarsListed);
 
         }
 
@@ -86,8 +81,9 @@ namespace Business.Concrete {
         }
 
         public IDataResult<List<CarImage>> GetCarImagesByCarId(int carId) {
-            return new SuccessDataResult<List<CarImage>>(_carImageDal.GetAll(p=> p.CarId == carId));
+            return new SuccessDataResult<List<CarImage>>(_carImageDal.GetAll(p => p.CarId == carId));
         }
+
 
     }
 }

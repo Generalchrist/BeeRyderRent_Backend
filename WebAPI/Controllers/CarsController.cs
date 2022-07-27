@@ -30,17 +30,41 @@ namespace WebAPI.Controllers {
             }
             return BadRequest(result.Message);
         }
-        [HttpGet("GetCarDetailDto")]
+        [HttpGet("GetCarDetailsDto")]
         public IActionResult GetCarDetailDto() {
-            var result = _carService.GetCarDetailDto();
+            var result = _carService.GetCarDetailsDto();
             if (result.Success) {
                 return Ok(result);
             }
             return BadRequest(result.Message);
         }
-        [HttpGet("GetCarDetailDtoById")]
-        public IActionResult GetCarDetailDtoById(int id) {
-            var result = _carService.GetCarDetailDtoById(id);
+        [HttpGet("GetCarsModelYears")]
+        public IActionResult GetCarsModelYears() {
+            var result = _carService.GetCarsModelYears();
+            if (result.Success) {
+                return Ok(result);
+            }
+            return BadRequest(result.Message);
+        }
+        [HttpGet("GetCarsModels")]
+        public IActionResult GetCarsModels() {
+            var result = _carService.GetCarsModels();
+            if (result.Success) {
+                return Ok(result);
+            }
+            return BadRequest(result.Message);
+        }
+        [HttpPost("GetFilteredCars")]
+        public IActionResult GetFilteredCars(FilterOptions filter) {
+            var result = _carService.GetFilteredCars(filter);
+            if (result.Success) {
+                return Ok(result);
+            }
+            return BadRequest(result.Message);
+        }
+        [HttpGet("GetCarDetailDto")]
+        public IActionResult GetCarDetailDto(int id) {
+            var result = _carService.GetCarDetailDto(id);
             if (result.Success) {
                 return Ok(result);
             }

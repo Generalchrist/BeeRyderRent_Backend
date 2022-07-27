@@ -14,8 +14,14 @@ namespace Business.Abstract {
         public IDataResult<List<Car>> GetCarsByBrandId(int brandId);
         public IDataResult<List<Car>> GetCarsByColorId(int colorId);
         public IDataResult<List<Car>> GetCarsByDailyPrice(int min, int max);
-        public IDataResult<List<CarDetailDto>> GetCarDetailDto();
-        public IDataResult<CarDetailDto> GetCarDetailDtoById(int id);
+        public IDataResult<List<CarDetailDto>> GetCarDetailsDto();
+        public IDataResult<CarDetailDto> GetCarDetailDto(int id);
+        public IDataResult<List<CarDetailDto>> GetFilteredCars(FilterOptions filters);
+        public IDataResult<List<int>> GetCarsModelYears();
+        public IDataResult<List<string>> GetCarsModels();
+
+
+
 
         IResult Add(Car car);
         IResult Update(Car car);

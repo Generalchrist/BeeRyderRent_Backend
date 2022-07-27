@@ -11,6 +11,7 @@ namespace Core.Utilities.Helpers {
         private static string _folderName = "\\images\\";
 
         public static IResult Upload(IFormFile file) {
+
             var fileExists = CheckFileExists(file);
             if (fileExists.Message != null) {
                 return new ErrorResult(fileExists.Message);
@@ -53,7 +54,7 @@ namespace Core.Utilities.Helpers {
         }
 
         public static IResult Delete(string path) {
-            DeleteOldImageFile((_currentDirectory + path).Replace("/", "\\"));
+            DeleteOldImageFile((path).Replace("/", "\\"));
             return new SuccessResult();
         }
 

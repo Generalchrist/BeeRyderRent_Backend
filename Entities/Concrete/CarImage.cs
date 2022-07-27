@@ -11,9 +11,5 @@ namespace Entities.Concrete {
         public string ImagePath { get; set; }
         public DateTime ImageDate { get; set; }
 
-        public CarImage() {
-            ImageDate=DateTime.Now;
-        }
-
     }
 }

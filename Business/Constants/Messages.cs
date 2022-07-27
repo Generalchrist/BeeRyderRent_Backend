@@ -31,5 +31,13 @@ namespace Business.Constants {
         public static string AccessTokenCreated = "Access token has created";
         public static string UserRegistered = "Succesfully registered";
         public static string AuthorizationDenied = "Authorization Denied";
+        public static string FilteredItemsListed = "Filtered Items Listed";
+        public static string CarRented ="Car Succesfully Rented";
+        public static string BalanceInsufficent = "Balance is Insufficent";
+
+        public static string ReturnDateLessThanRentDate { get; internal set; }
+        public static string CarAlreadyRented { get; internal set; }
+        public static string CustomerHasNoNationalIdentity { get; internal set; }
+        public static string FindexScoreInsufficient { get; internal set; }
     }
 }

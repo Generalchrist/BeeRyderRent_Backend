@@ -25,10 +25,7 @@ namespace ConsoleUI {
             //var result = customerManager.Add(customer);
             //Console.WriteLine(result.Message);
 
-            Rental rental = new Rental{CarId=1,CustomerId=2,Id=2,RentDate=DateTime.Now.Date};
-            RentalManager rentalManager = new RentalManager(new EfRentalDal());
-            var result = rentalManager.Add(rental);
-            Console.WriteLine(result.Message);
+
 
 
             /*

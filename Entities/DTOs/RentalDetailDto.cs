@@ -6,10 +6,9 @@ namespace Entities.DTOs {
     public class RentalDetailDto {
         public int Id { get; set; }
         public string BrandName { get; set; }
-        public string FirstName { get; set; }
-        public string LastName { get; set; }
-
+        public string Model { get; set; }
+        public string CustomerName { get; set; }
         public DateTime RentDate { get; set; }
-        public Nullable<DateTime> ReturnDate { get; set; }
+        public DateTime ReturnDate { get; set; }
     }
 }

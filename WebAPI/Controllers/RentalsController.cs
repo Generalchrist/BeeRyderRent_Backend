@@ -1,5 +1,6 @@
 ﻿using Business.Abstract;
 using Entities.Concrete;
+using Entities.DTOs;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -18,8 +19,8 @@ namespace WebAPI.Controllers {
             _rentalService = rentalService;
         }
         [HttpPost("add")]
-        public IActionResult Add(Rental rental) {
-            var result = _rentalService.Add(rental);
+        public IActionResult Add(RentCarDto rentCarDto) {
+            var result = _rentalService.Add(rentCarDto.Rental, rentCarDto.CreditCard);
             if (result.Success) {
                 return Ok(result);
             }
@@ -36,6 +37,14 @@ namespace WebAPI.Controllers {
         [HttpPost("update")]
         public IActionResult Update(Rental rental) {
             var result = _rentalService.Update(rental);
+            if (result.Success) {
+                return Ok(result);
+            }
+            return BadRequest(result);
+        }
+        [HttpGet("get")]
+        public IActionResult Get(int id) {
+            var result = _rentalService.Get(id);
             if (result.Success) {
                 return Ok(result);
             }
@@ -60,6 +69,14 @@ namespace WebAPI.Controllers {
                 return Ok(result);
             }
             return BadRequest(result.Message);
+        }
+        [HttpGet("getoccupieddates")]
+        public IActionResult GetEmptyDates(int carId) {
+            var result = _rentalService.GetOccupiedDates(carId);
+            if (result.Success) {
+                return Ok(result);
+            }
+            return BadRequest(result);
         }
     }
 }
