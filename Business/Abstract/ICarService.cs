@@ -10,7 +10,7 @@ namespace Business.Abstract {
     public interface ICarService {
 
         public IDataResult<List<Car>> GetAll();
-
+        public IDataResult<Car> Get(int id);
         public IDataResult<List<Car>> GetCarsByBrandId(int brandId);
         public IDataResult<List<Car>> GetCarsByColorId(int colorId);
         public IDataResult<List<Car>> GetCarsByDailyPrice(int min, int max);
@@ -23,10 +23,10 @@ namespace Business.Abstract {
 
 
 
-        IResult Add(Car car);
-        IResult Update(Car car);
-        IResult Delete(Car car);
-        IResult AddTransactionalTest(Car car);
+        public IResult Add(Car car);
+        public IResult Update(Car car);
+        public IResult Delete(Car car);
+        public IResult AddTransactionalTest(Car car);
 
 
     }

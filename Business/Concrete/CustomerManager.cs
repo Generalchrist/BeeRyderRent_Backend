@@ -29,7 +29,9 @@ namespace Business.Concrete {
             _customerDal.Delete(customer);
             return new SuccessResult(Messages.CustomerDeleted);
         }
-
+        public IDataResult<Customer> Get(int id) {
+            return new SuccessDataResult<Customer>(_customerDal.Get(c => c.CustomerId == id));
+        }
         public IDataResult<List<Customer>> GetAll() {
             return new SuccessDataResult<List<Customer>>(_customerDal.GetAll(),Messages.CustomerListed);
         }

@@ -3,6 +3,7 @@ using Business.Constants;
 using Business.ValidationRules.FluentValidation;
 using Core.Aspects.Autofac.Caching;
 using Core.Aspects.Autofac.Validation;
+using Core.Utilities.Business;
 using Core.Utilities.Results;
 using Core.Utilities.Results.Data;
 using DataAccess.Abstract;
@@ -17,18 +18,22 @@ namespace Business.Concrete {
     public class RentalManager:IRentalService {
 
         IRentalDal _rentalDal;
+        ICarService _carService;
         IPaymentService _paymentService;
-        ICarDal _carDal;
         IFindexService _findexService;
-        ICustomerDal _customerDal;
+        ICustomerService _customerService;
 
         public RentalManager(
-            IRentalDal rentalDal,
-            IPaymentService paymentService,
-            ICarService carService,
-            IFindexService findexService,
-            ICustomerService customerService) {
+                IRentalDal rentalDal,
+                IPaymentService paymentService,
+                ICarService carService,
+                IFindexService findexService,
+                ICustomerService customerService) {
             _rentalDal = rentalDal;
+            _paymentService = paymentService;
+            _carService = carService;
+            _findexService = findexService;
+            _customerService = customerService;
         }
 
         [CacheRemoveAspect("IRentalService.Get")]
@@ -42,7 +47,7 @@ namespace Business.Concrete {
                 return businessResult;
             }
             rental.TotalDays = rental.ReturnDate.Subtract(rental.RentDate).Days + 1;
-            rental.TotalPrice = rental.TotalDays * _carDal.Get(rental.CarId).DailyPrice;
+            rental.TotalPrice = rental.TotalDays * _carService.Get(rental.CarId).Data.DailyPrice;
 
             var paymentResult = _paymentService.Pay(card, rental.TotalPrice);
             if (!paymentResult.Success) {
@@ -78,7 +83,7 @@ namespace Business.Concrete {
 
 
         public IDataResult<Rental> Get(int rentalId) {
-            throw new NotImplementedException();
+            return new SuccessDataResult<Rental>(_rentalDal.Get(r => r.Id == rentalId));
         }
 
         public IDataResult<List<DateTime>> GetOccupiedDates(int carId) {
@@ -115,8 +120,8 @@ namespace Business.Concrete {
 
         private IResult CheckIfCarRented(Rental rental) {
             var isOccupied = _rentalDal.GetAll(r => r.CarId == rental.CarId &&
-                r.ReturnDate >= rental.RentDate && //Finds the rentals which are not yet returned
-                r.RentDate <= rental.ReturnDate // Finds the rentals which are rented before requests return date. Which means it occupies requests rent interval
+                r.ReturnDate >= rental.RentDate && //Finds the rentals which are not yet returned  15 20  
+                r.RentDate <= rental.ReturnDate // Finds the rentals which are rented before requests return date. Which means it occupies requests rent interval 
             ).Any();
             if (isOccupied) {
                 return new ErrorResult(Messages.CarAlreadyRented);
@@ -125,13 +130,13 @@ namespace Business.Concrete {
         }
 
         private IResult CheckIfFindexScoreSufficient(Rental rental) {
-            var customer = _customerDal.Get(rental.CustomerId).Data;
+            var customer = _customerService.Get(rental.CustomerId).Data;
             if (customer.NationalIdentity == null) {
                 return new ErrorResult(Messages.CustomerHasNoNationalIdentity);
             }
             var findexScore = _findexService.GetCustomerFindexScore(customer.NationalIdentity).Data;
 
-            var carMinFindexScore = _carDal.Get(rental.CarId).Data.FindexScore;
+            var carMinFindexScore = _carService.Get(rental.CarId).Data.FindexScore;
             if (findexScore < carMinFindexScore) {
                 return new ErrorResult(Messages.FindexScoreInsufficient);
             }
