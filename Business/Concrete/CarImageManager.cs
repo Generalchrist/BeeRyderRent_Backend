@@ -22,7 +22,11 @@ namespace Business.Concrete {
         }
 
         [ValidationAspect(typeof(CarImageValidator))]
-        public IResult Add(IFormFile file, CarImage carImage) {
+        public IResult Add(IFormFile file, int carImageId) {
+
+            var carImage = new CarImage(){
+                CarId = carImageId
+            };
 
             var imageResult = FileHelper.Upload(file);
             if (!imageResult.Success) {

@@ -1,4 +1,5 @@
 ﻿using Core.Entities.Concrete;
+using Entities.DTOs;
 using System;
 using System.Collections.Generic;
 using System.Runtime.Serialization;
@@ -34,10 +35,13 @@ namespace Business.Constants {
         public static string FilteredItemsListed = "Filtered Items Listed";
         public static string CarRented ="Car Succesfully Rented";
         public static string BalanceInsufficent = "Balance is Insufficent";
+        public static string ReturnDateLessThanRentDate = "Return Date Less Than Rent Date";
+        public static string CarAlreadyRented = "Car Already Rented";
+        public static string CustomerHasNoNationalIdentity = "Customer Has No National Identity";
+        public static string FindexScoreInsufficient = "Findex Score Insufficient";
+        public static string UserDoesntExists = "User Doesnt Exists";
+        public static string InformationUpdated = "Information Updated";
 
-        public static string ReturnDateLessThanRentDate { get; internal set; }
-        public static string CarAlreadyRented { get; internal set; }
-        public static string CustomerHasNoNationalIdentity { get; internal set; }
-        public static string FindexScoreInsufficient { get; internal set; }
+        public static string PasswordUpdated = "Password Updated";
     }
 }

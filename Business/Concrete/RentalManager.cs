@@ -120,7 +120,7 @@ namespace Business.Concrete {
 
         private IResult CheckIfCarRented(Rental rental) {
             var isOccupied = _rentalDal.GetAll(r => r.CarId == rental.CarId &&
-                r.ReturnDate >= rental.RentDate && //Finds the rentals which are not yet returned  15 20  
+                r.ReturnDate >= rental.RentDate && //Finds the rentals which are not yet returned 
                 r.RentDate <= rental.ReturnDate // Finds the rentals which are rented before requests return date. Which means it occupies requests rent interval 
             ).Any();
             if (isOccupied) {
@@ -143,5 +143,8 @@ namespace Business.Concrete {
             return new SuccessResult();
         }
 
+        public IDataResult<List<RentalDetailDto>> GetRentalDetailDtoByUserId(int id) {
+            return new SuccessDataResult<List<RentalDetailDto>>(_rentalDal.GetRentalDetailDto(r => r.CustomerId == id));
+        }
     }
 }

@@ -18,8 +18,8 @@ namespace WebAPI.Controllers {
         }
 
         [HttpPost("add")]
-        public IActionResult Add([FromForm(Name = "image")] IFormFile file, [FromForm] CarImage carImage) {
-            var result = _carimageService.Add(file,carImage);
+        public IActionResult Add([FromForm(Name = "image")] IFormFile file,int carImageId) {
+            var result = _carimageService.Add(file,carImageId);
             if (result.Success) {
                 return Ok(result);
             }

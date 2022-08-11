@@ -13,6 +13,8 @@ namespace Business.Abstract {
         IResult Delete(Rental rental);
         public IDataResult<List<Rental>> GetAll();
         public IDataResult<List<RentalDetailDto>> GetRentalDetailDto();
+        public IDataResult<List<RentalDetailDto>> GetRentalDetailDtoByUserId(int id);
+
         IDataResult<Rental> Get(int rentalId);
         IDataResult<List<DateTime>> GetOccupiedDates(int carId);
 

@@ -17,6 +17,7 @@ using Core.Utilities.Security.Encryption;
 using Core.Utilities.IoC;
 using Core.DependencyResolvers;
 using Core.Extensions;
+using Microsoft.IdentityModel.Logging;
 
 namespace WebAPI {
     public class Startup {
@@ -51,6 +52,10 @@ namespace WebAPI {
                 new CoreModule()
             });
 
+            services.AddSwaggerDocument();
+
+            IdentityModelEventSource.ShowPII = true;
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -73,6 +78,8 @@ namespace WebAPI {
             app.UseEndpoints(endpoints => {
                 endpoints.MapControllers();
             });
+            app.UseOpenApi();
+            app.UseSwaggerUi3();
         }
     }
 }

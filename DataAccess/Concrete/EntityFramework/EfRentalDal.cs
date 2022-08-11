@@ -5,11 +5,11 @@ using Entities.DTOs;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-
+using System.Linq.Expressions;
 
 namespace DataAccess.Concrete.EntityFramework {
     public class EfRentalDal : EfEntityRepositoryBase<Rental, NorthwindContext>, IRentalDal {
-        public List<RentalDetailDto> GetRentalDetailDto() {
+        public List<RentalDetailDto> GetRentalDetailDto(Expression<Func<RentalDetailDto, bool>> expression=null) {
             using (NorthwindContext context = new NorthwindContext()) {
                 var result = from r in context.Rentals
                              join ca in context.Cars
@@ -22,11 +22,15 @@ namespace DataAccess.Concrete.EntityFramework {
                                  Id = r.Id,
                                  BrandName = b.Name,
                                  Model = ca.Model,
+                                 CustomerId = u.Id,
                                  CustomerName = u.FirstName + " " + u.LastName,
                                  RentDate = r.RentDate,
                                  ReturnDate = r.ReturnDate
                              };
-                return result.ToList();
+                return expression ==null
+                    ?result.ToList()
+                    :result.Where(expression).ToList();
+
 
             }
         }
