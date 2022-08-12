@@ -5,8 +5,8 @@ using System.Linq;
 using Core.EntityFramework;
 
 namespace DataAccess.Concrete.EntityFramework {
-    public class EfUserDal : EfEntityRepositoryBase<User, NorthwindContext>, IUserDal {
-        public List<OperationClaim> GetClaims(User user) {
+    public class EfUserDal : EfEntityRepositoryBase<UserDTO, NorthwindContext>, IUserDal {
+        public List<OperationClaim> GetClaims(UserDTO user) {
             using (var context = new NorthwindContext()) {
                 var result = from operationClaim in context.OperationClaims
                              join userOperationClaim in context.UserOperationClaims

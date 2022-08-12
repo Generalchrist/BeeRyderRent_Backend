@@ -25,7 +25,7 @@ namespace Business.Concrete {
             _customerService = customerService;
         }
 
-        public IResult Add(User user) {
+        public IResult Add(UserDTO user) {
 
             _userDal.Add(user);
             Customer c = new Customer() {
@@ -35,11 +35,11 @@ namespace Business.Concrete {
             
             return new SuccessResult();
         }
-        public IDataResult<User> GetByMail(string email) {
-            return new SuccessDataResult<User>(_userDal.Get(u => u.Email == email));
+        public IDataResult<UserDTO> GetByMail(string email) {
+            return new SuccessDataResult<UserDTO>(_userDal.Get(u => u.Email == email));
         }
 
-        public IDataResult<List<OperationClaim>> GetClaims(User user) {
+        public IDataResult<List<OperationClaim>> GetClaims(UserDTO user) {
             return new SuccessDataResult<List<OperationClaim>>(_userDal.GetClaims(user));
         }
 
@@ -55,7 +55,7 @@ namespace Business.Concrete {
             return new ErrorDataResult<UserDto>(Messages.UserDoesntExists);
         }
 
-        public IResult Update(User user) {
+        public IResult Update(UserDTO user) {
             var userToUpdate = GetByMail(user.Email).Data;
 
             userToUpdate.FirstName = user.FirstName;

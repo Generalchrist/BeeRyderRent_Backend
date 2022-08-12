@@ -23,7 +23,7 @@ namespace Core.Utilities.Security.JWT {
         }
 
 
-        public AccessToken CreateToken(User user, List<OperationClaim> operationClaims) {
+        public AccessToken CreateToken(UserDTO user, List<OperationClaim> operationClaims) {
             _accessTokenExpiration = DateTime.Now.AddMinutes(_tokenOptions.AccessTokenExpiration);
             var securityKey = SecurityKeyHelper.CreateSecurityKey(_tokenOptions.SecurityKey);
             var signingCredentials = SigningCredentialsHelper.CreateSigningCredentials(securityKey);
@@ -36,7 +36,7 @@ namespace Core.Utilities.Security.JWT {
             };
         }
 
-        public JwtSecurityToken CreateJwtSecurityToken(TokenOptions tokenOptions, User user,
+        public JwtSecurityToken CreateJwtSecurityToken(TokenOptions tokenOptions, UserDTO user,
             SigningCredentials signingCredentials, List<OperationClaim> operationClaims) {
             var jwt = new JwtSecurityToken(
                 issuer: tokenOptions.Issuer,
@@ -49,7 +49,7 @@ namespace Core.Utilities.Security.JWT {
             return jwt;
         }
 
-        public IEnumerable<Claim> SetClaims(User user, List<OperationClaim> operationClaims) {
+        public IEnumerable<Claim> SetClaims(UserDTO user, List<OperationClaim> operationClaims) {
             var claims = new List<Claim>();
             claims.AddNameIdentifier(user.Id.ToString());
             claims.AddEmail(user.Email);

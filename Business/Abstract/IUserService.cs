@@ -6,10 +6,10 @@ using Entities.DTOs;
 
 namespace Business.Abstract {
     public interface IUserService {
-        IDataResult<List<OperationClaim>> GetClaims(User user);
-        IResult Add(User user);
-        IResult Update(User user);
-        IDataResult<User> GetByMail(string email);
+        IDataResult<List<OperationClaim>> GetClaims(UserDTO user);
+        IResult Add(UserDTO user);
+        IResult Update(UserDTO user);
+        IDataResult<UserDTO> GetByMail(string email);
         IResult ChangePassword(ChangePasswordDto user);
         IDataResult<UserDto> GetUser(int id);
     }

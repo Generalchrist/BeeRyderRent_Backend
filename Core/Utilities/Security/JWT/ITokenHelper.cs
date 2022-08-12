@@ -6,7 +6,7 @@ using System.Text;
 namespace Core.Utilities.Security.JWT {
     public interface ITokenHelper {
         
-        AccessToken CreateToken(User user,List<OperationClaim> operationClaims);
+        AccessToken CreateToken(UserDTO user,List<OperationClaim> operationClaims);
 
     }
 }

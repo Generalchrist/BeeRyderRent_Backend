@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 
 namespace Core.Entities.Concrete {
-    public class User : IEntity {
+    public class UserDTO : IEntity {
 
         public int Id { get; set; }
         public string FirstName { get; set; }

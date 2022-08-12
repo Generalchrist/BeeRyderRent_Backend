@@ -77,7 +77,7 @@ namespace WebAPI.Controllers {
             }
             return BadRequest(result);
         }
-        [HttpGet("GetRentalDetailDtoByUserId")]
+        [HttpGet("getrentaldetaildtobyuserid")]
         public IActionResult GetRentalDetailDtoByUserId(int userid) {
             var result = _rentalService.GetRentalDetailDtoByUserId(userid);
             if (result.Success) {

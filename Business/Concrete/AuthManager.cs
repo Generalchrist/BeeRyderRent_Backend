@@ -18,27 +18,27 @@ namespace Business.Concrete {
             _tokenHelper = tokenHelper;
         }
 
-        public IDataResult<AccessToken> CreateAccessToken(User user) {
+        public IDataResult<AccessToken> CreateAccessToken(UserDTO user) {
             var claims = _userService.GetClaims(user);
             var accessToken = _tokenHelper.CreateToken(user, claims.Data);
             return new SuccessDataResult<AccessToken>(accessToken, Messages.AccessTokenCreated);
         }
 
-        public IDataResult<User> Login(UserForLoginDto userForLoginDto) {
+        public IDataResult<UserDTO> Login(UserForLoginDto userForLoginDto) {
             var userToCheck = _userService.GetByMail(userForLoginDto.Email).Data;
             if (userToCheck == null) {
-                return new ErrorDataResult<User>(Messages.UserNotFound);
+                return new ErrorDataResult<UserDTO>(Messages.UserNotFound);
             }
             if (!HashingHelper.VerifyPasswordHash(userForLoginDto.Password, userToCheck.PasswordHash, userToCheck.PasswordSalt)) {
-                return new ErrorDataResult<User>(Messages.PasswordError);
+                return new ErrorDataResult<UserDTO>(Messages.PasswordError);
             }
-            return new SuccessDataResult<User>(userToCheck, Messages.SuccesfullLogin);
+            return new SuccessDataResult<UserDTO>(userToCheck, Messages.SuccesfullLogin);
         }
 
-        public IDataResult<User> Register(UserForRegisterDto userForRegisterDto) {
+        public IDataResult<UserDTO> Register(UserForRegisterDto userForRegisterDto) {
             byte[] passwordHash, passwordSalt;
             HashingHelper.CreatePasswordHash(userForRegisterDto.Password, out passwordHash, out passwordSalt);
-            var user = new User {
+            var user = new UserDTO {
                 Email = userForRegisterDto.Email,
                 FirstName = userForRegisterDto.FirstName,
                 LastName = userForRegisterDto.LastName,
@@ -47,7 +47,7 @@ namespace Business.Concrete {
                 Status = true
             };
             _userService.Add(user);
-            return new SuccessDataResult<User>(user,Messages.UserRegistered);
+            return new SuccessDataResult<UserDTO>(user,Messages.UserRegistered);
         }
 
         public IResult UserExists(string email) {

@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using System.Text;
 
 namespace DataAccess.Abstract {
-    public interface IUserDal : IEntityRepository<User> {
-        List<OperationClaim> GetClaims(User user);
+    public interface IUserDal : IEntityRepository<UserDTO> {
+        List<OperationClaim> GetClaims(UserDTO user);
     }
 }
